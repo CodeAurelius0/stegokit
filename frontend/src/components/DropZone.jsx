@@ -36,9 +36,9 @@ export default function DropZone({ label, accept = 'image/*', file, preview, onC
   };
 
   const zone = {
-    border: `2px dashed ${drag ? '#7c6af7' : preview ? '#06d6a0' : 'rgba(255,255,255,0.1)'}`,
-    borderRadius: 14,
-    background: drag ? 'rgba(124,106,247,0.06)' : preview ? 'rgba(6,214,160,0.04)' : 'rgba(255,255,255,0.02)',
+    border: `1px dashed ${drag ? 'var(--accent-blue)' : preview ? 'var(--success)' : 'var(--border-default)'}`,
+    borderRadius: 8,
+    background: drag ? 'rgba(47,129,247,0.08)' : preview ? 'rgba(63,185,80,0.05)' : 'var(--bg-base)',
     minHeight: 160,
     display: 'flex',
     flexDirection: 'column',
@@ -69,34 +69,35 @@ export default function DropZone({ label, accept = 'image/*', file, preview, onC
               alt="preview"
               style={{
                 maxHeight: 200, maxWidth: '100%',
-                borderRadius: 10, objectFit: 'contain',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+                borderRadius: 8, objectFit: 'contain',
+                boxShadow: 'none',
               }}
             />
-            <div style={{ fontSize: 12, color: '#06d6a0', fontWeight: 600 }}>
-              ✓ {file?.name || 'Image loaded'}
-              {file && <span style={{ color: '#8888a8', fontWeight: 400 }}>
+            <div style={{ fontSize: 12, color: 'var(--success)', fontWeight: 600 }}>
+              {file?.name || 'Image loaded'}
+              {file && <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>
                 {' '}· {(file.size / 1024).toFixed(1)} KB
               </span>}
             </div>
             {!disabled && (
-              <span style={{ fontSize: 12, color: '#8888a8' }}>Click to change</span>
+              <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Click to change</span>
             )}
           </>
         ) : (
           <>
             <div style={{
-              width: 48, height: 48, borderRadius: 12,
-              background: 'rgba(124,106,247,0.1)',
+              width: 48, height: 48, borderRadius: 8,
+              background: 'var(--bg-elevated)',
+              border: '1px solid var(--border-default)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 22,
-            }}>🖼️</div>
+              fontSize: 22, color: 'var(--text-secondary)',
+            }}>+</div>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontWeight: 600, fontSize: 14, color: '#f1f1f6', marginBottom: 4 }}>
+              <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--text-primary)', marginBottom: 4 }}>
                 Drop image here
               </div>
-              <div style={{ fontSize: 13, color: '#8888a8' }}>or click to browse</div>
-              {hint && <div style={{ fontSize: 12, color: '#8888a8', marginTop: 6 }}>{hint}</div>}
+              <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>or click to browse</div>
+              {hint && <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 6 }}>{hint}</div>}
             </div>
           </>
         )}

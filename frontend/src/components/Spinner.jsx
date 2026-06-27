@@ -1,7 +1,7 @@
 /**
  * Spinner — inline loading spinner.
  */
-export default function Spinner({ size = 20, color = '#7c6af7' }) {
+export default function Spinner({ size = 20, color = '#2f81f7' }) {
   return (
     <div style={{
       width: size, height: size,

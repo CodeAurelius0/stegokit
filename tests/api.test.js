@@ -15,6 +15,20 @@ async function makeTestPng(width, height, color = 0x4488ccff) {
   return img.getBufferAsync('image/png');
 }
 
+function parseBinary(res, cb) {
+  const chunks = [];
+  res.setEncoding('binary');
+  res.on('data', (chunk) => chunks.push(Buffer.from(chunk, 'binary')));
+  res.on('end', () => cb(null, Buffer.concat(chunks)));
+}
+
+function expectPngResponse(res) {
+  expect(res.status).toBe(200);
+  expect(res.headers['content-type']).toMatch(/^image\/png/);
+  expect(res.body).toBeInstanceOf(Buffer);
+  expect(res.body.slice(0, 8).toString('hex')).toBe('89504e470d0a1a0a');
+}
+
 // ── Tests ─────────────────────────────────────────────────────────────────────
 
 describe('GET /api/health', () => {
@@ -33,17 +47,17 @@ describe('POST /api/encode/text + POST /api/decode/text', () => {
     carrierBuf = await makeTestPng(300, 300);
   });
 
-  test('encodes text and returns base64 PNG', async () => {
+  test('encodes text and returns a PNG stream', async () => {
     const res = await request(app)
       .post('/api/encode/text')
       .attach('carrier', carrierBuf, { filename: 'carrier.png', contentType: 'image/png' })
-      .field('text', 'Hello API!');
+      .field('text', 'Hello API!')
+      .buffer(true)
+      .parse(parseBinary);
 
-    expect(res.status).toBe(200);
-    expect(res.body.success).toBe(true);
-    expect(res.body.data.imageDataUrl).toMatch(/^data:image\/png;base64,/);
-    expect(res.body.data.textLength).toBe(10);
-    expect(res.body.data.encrypted).toBe(false);
+    expectPngResponse(res);
+    expect(res.headers['x-text-length']).toBe('10');
+    expect(res.headers['x-encrypted']).toBe('false');
   });
 
   test('encode → decode round-trip via API', async () => {
@@ -53,17 +67,15 @@ describe('POST /api/encode/text + POST /api/decode/text', () => {
     const encRes = await request(app)
       .post('/api/encode/text')
       .attach('carrier', carrierBuf, { filename: 'c.png', contentType: 'image/png' })
-      .field('text', text);
-    expect(encRes.status).toBe(200);
-
-    // Extract PNG buffer from base64
-    const base64 = encRes.body.data.base64;
-    const encBuf = Buffer.from(base64, 'base64');
+      .field('text', text)
+      .buffer(true)
+      .parse(parseBinary);
+    expectPngResponse(encRes);
 
     // Decode
     const decRes = await request(app)
       .post('/api/decode/text')
-      .attach('encoded', encBuf, { filename: 'enc.png', contentType: 'image/png' });
+      .attach('encoded', encRes.body, { filename: 'enc.png', contentType: 'image/png' });
     expect(decRes.status).toBe(200);
     expect(decRes.body.data.text).toBe(text);
   });
@@ -76,14 +88,14 @@ describe('POST /api/encode/text + POST /api/decode/text', () => {
       .post('/api/encode/text')
       .attach('carrier', carrierBuf, { filename: 'c.png', contentType: 'image/png' })
       .field('text', text)
-      .field('password', pw);
-    expect(encRes.status).toBe(200);
-
-    const encBuf = Buffer.from(encRes.body.data.base64, 'base64');
+      .field('password', pw)
+      .buffer(true)
+      .parse(parseBinary);
+    expectPngResponse(encRes);
 
     const decRes = await request(app)
       .post('/api/decode/text')
-      .attach('encoded', encBuf, { filename: 'enc.png', contentType: 'image/png' })
+      .attach('encoded', encRes.body, { filename: 'enc.png', contentType: 'image/png' })
       .field('password', pw);
     expect(decRes.status).toBe(200);
     expect(decRes.body.data.text).toBe(text);
@@ -117,27 +129,29 @@ describe('POST /api/encode/image + POST /api/decode/image', () => {
     const res = await request(app)
       .post('/api/encode/image')
       .attach('carrier', carrierBuf, { filename: 'carrier.png', contentType: 'image/png' })
-      .attach('secret',  secretBuf,  { filename: 'secret.png',  contentType: 'image/png' });
+      .attach('secret',  secretBuf,  { filename: 'secret.png',  contentType: 'image/png' })
+      .buffer(true)
+      .parse(parseBinary);
 
-    expect(res.status).toBe(200);
-    expect(res.body.success).toBe(true);
-    expect(res.body.data.imageDataUrl).toMatch(/^data:image\/png;base64,/);
+    expectPngResponse(res);
+    expect(res.headers['x-encrypted']).toBe('false');
   });
 
   test('encode-image → decode-image round-trip', async () => {
     const encRes = await request(app)
       .post('/api/encode/image')
       .attach('carrier', carrierBuf, { filename: 'carrier.png', contentType: 'image/png' })
-      .attach('secret',  secretBuf,  { filename: 'secret.png',  contentType: 'image/png' });
-    expect(encRes.status).toBe(200);
-
-    const encBuf = Buffer.from(encRes.body.data.base64, 'base64');
+      .attach('secret',  secretBuf,  { filename: 'secret.png',  contentType: 'image/png' })
+      .buffer(true)
+      .parse(parseBinary);
+    expectPngResponse(encRes);
 
     const decRes = await request(app)
       .post('/api/decode/image')
-      .attach('encoded', encBuf, { filename: 'enc.png', contentType: 'image/png' });
-    expect(decRes.status).toBe(200);
-    expect(decRes.body.data.imageDataUrl).toMatch(/^data:image\/png;base64,/);
+      .attach('encoded', encRes.body, { filename: 'enc.png', contentType: 'image/png' })
+      .buffer(true)
+      .parse(parseBinary);
+    expectPngResponse(decRes);
   });
 });
 
@@ -145,15 +159,15 @@ describe('POST /api/encrypt + POST /api/decrypt', () => {
   test('encrypts and decrypts text', async () => {
     const encRes = await request(app)
       .post('/api/encrypt')
-      .send(JSON.stringify({ text: 'Hello!', password: 'pw123' }))
-      .type('json');
+      .set('Content-Type', 'application/json')
+      .send(JSON.stringify({ text: 'Hello!', password: 'pw123' }));
     expect(encRes.status).toBe(200);
     expect(encRes.body.data.ciphertext).toBeDefined();
 
     const decRes = await request(app)
       .post('/api/decrypt')
-      .send(JSON.stringify({ ciphertext: encRes.body.data.ciphertext, password: 'pw123' }))
-      .type('json');
+      .set('Content-Type', 'application/json')
+      .send(JSON.stringify({ ciphertext: encRes.body.data.ciphertext, password: 'pw123' }));
     expect(decRes.status).toBe(200);
     expect(decRes.body.data.text).toBe('Hello!');
   });
@@ -161,13 +175,13 @@ describe('POST /api/encrypt + POST /api/decrypt', () => {
   test('returns 401 on wrong password', async () => {
     const encRes = await request(app)
       .post('/api/encrypt')
-      .send(JSON.stringify({ text: 'secret', password: 'correct' }))
-      .type('json');
+      .set('Content-Type', 'application/json')
+      .send(JSON.stringify({ text: 'secret', password: 'correct' }));
 
     const decRes = await request(app)
       .post('/api/decrypt')
-      .send(JSON.stringify({ ciphertext: encRes.body.data.ciphertext, password: 'wrong' }))
-      .type('json');
+      .set('Content-Type', 'application/json')
+      .send(JSON.stringify({ ciphertext: encRes.body.data.ciphertext, password: 'wrong' }));
     expect(decRes.status).toBe(401);
   });
 });
@@ -178,14 +192,15 @@ describe('POST /api/visualize', () => {
     const encRes  = await request(app)
       .post('/api/encode/text')
       .attach('carrier', carrier, { filename: 'c.png', contentType: 'image/png' })
-      .field('text', 'Visualization test');
-
-    const encoded = Buffer.from(encRes.body.data.base64, 'base64');
+      .field('text', 'Visualization test')
+      .buffer(true)
+      .parse(parseBinary);
+    expectPngResponse(encRes);
 
     const vizRes = await request(app)
       .post('/api/visualize')
       .attach('carrier', carrier, { filename: 'orig.png', contentType: 'image/png' })
-      .attach('encoded', encoded, { filename: 'enc.png',  contentType: 'image/png' })
+      .attach('encoded', encRes.body, { filename: 'enc.png',  contentType: 'image/png' })
       .field('sampleCount', '8');
 
     expect(vizRes.status).toBe(200);

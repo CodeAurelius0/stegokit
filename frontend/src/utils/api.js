@@ -4,9 +4,22 @@
  */
 import axios from 'axios';
 
+const apiBaseUrl = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: apiBaseUrl,
   timeout: 600000, // 10 min — large image encoding/decoding can take time
+});
+
+api.interceptors.request.use((config) => {
+  if (
+    apiBaseUrl === '/api' &&
+    typeof window !== 'undefined' &&
+    window.location.hostname.endsWith('github.io')
+  ) {
+    throw new Error('API URL is not configured for GitHub Pages. Set VITE_API_URL to your deployed backend URL.');
+  }
+  return config;
 });
 
 // When responseType is 'arraybuffer' and the server returns an error JSON,

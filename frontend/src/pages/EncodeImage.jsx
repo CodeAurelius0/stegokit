@@ -43,7 +43,7 @@ export default function EncodeImage() {
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: '48px 24px' }}>
       <div className="fade-up">
-        <h1 className="section-title">🖼️ Hide Image in Image</h1>
+        <h1 className="section-title">Hide Image in Image</h1>
         <p className="section-subtitle">
           Embed a secret image inside a carrier using LSB steganography across R, G, B channels.
         </p>
@@ -89,7 +89,7 @@ export default function EncodeImage() {
       <div style={{ marginTop: 20 }}>
         <button className="btn btn-primary" onClick={handleSubmit} disabled={!canSubmit}
           style={{ fontSize: 15, padding: '12px 32px', width: '100%' }}>
-          {loading ? <><Spinner size={16} color="#fff" /> Encoding…</> : '🔒 Encode & Hide Image'}
+          {loading ? <><Spinner size={16} color="#fff" /> Encoding…</> : 'Encode & Hide Image'}
         </button>
       </div>
 

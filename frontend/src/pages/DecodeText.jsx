@@ -37,7 +37,7 @@ export default function DecodeText() {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 24px' }}>
       <div className="fade-up">
-        <h1 className="section-title">📝 Extract Hidden Text</h1>
+        <h1 className="section-title">Extract Hidden Text</h1>
         <p className="section-subtitle">Decode and recover text that was hidden inside a StegoKit-encoded image.</p>
       </div>
 
@@ -64,27 +64,27 @@ export default function DecodeText() {
       <button className="btn btn-primary" onClick={handleSubmit}
         disabled={!encoded.file || loading}
         style={{ fontSize: 15, padding: '12px 32px', width: '100%', marginTop: 12 }}>
-        {loading ? <><Spinner size={16} color="#fff" /> Extracting…</> : '🔓 Extract Hidden Text'}
+        {loading ? <><Spinner size={16} color="#fff" /> Extracting…</> : 'Extract Hidden Text'}
       </button>
 
       {text && (
-        <div className="card fade-up" style={{ marginTop: 28, borderColor: 'rgba(6,214,160,0.2)' }}>
+        <div className="card fade-up" style={{ marginTop: 28, borderColor: 'rgba(63,185,80,0.35)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-            <span style={{ fontWeight: 700, color: '#06d6a0', fontSize: 15 }}>✓ Text Recovered</span>
+            <span style={{ fontWeight: 700, color: 'var(--success)', fontSize: 15 }}>Text Recovered</span>
             <div style={{ display: 'flex', gap: 8 }}>
-              <span style={{ fontSize: 12, color: '#8888a8' }}>
-                {text.textLength} chars · {text.decrypted ? '🔐 Decrypted' : 'Plain'}
+              <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+                {text.textLength} chars · {text.decrypted ? 'Decrypted' : 'Plain'}
               </span>
               <button className="btn btn-secondary" onClick={handleCopy}
                 style={{ fontSize: 12, padding: '5px 12px' }}>
-                {copied ? '✓ Copied!' : '📋 Copy'}
+                {copied ? 'Copied' : 'Copy'}
               </button>
             </div>
           </div>
           <div style={{
-            background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: 10, padding: '16px', fontFamily: 'monospace',
-            fontSize: 14, color: '#f1f1f6', lineHeight: 1.7,
+            background: 'var(--bg-base)', border: '1px solid var(--border-subtle)',
+            borderRadius: 8, padding: '16px', fontFamily: 'monospace',
+            fontSize: 14, color: 'var(--text-primary)', lineHeight: 1.7,
             whiteSpace: 'pre-wrap', wordBreak: 'break-word',
             maxHeight: 320, overflow: 'auto',
           }}>

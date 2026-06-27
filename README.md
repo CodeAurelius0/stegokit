@@ -35,24 +35,20 @@ git clone <repo-url>
 cd stegokit
 
 # Install all dependencies
-cd backend  && npm install && cd ..
-cd cli      && npm install && cd ..
-cd frontend && npm install && cd ..
+npm run install:all
 ```
 
 ### Running
 
 **Terminal 1 — Start API backend (port 5000):**
 ```bash
-cd backend
-npm start
+npm run backend
 # → http://localhost:5000/api
 ```
 
 **Terminal 2 — Start React frontend (port 5173):**
 ```bash
-cd frontend
-npm run dev
+npm run frontend
 # → http://localhost:5173
 ```
 
@@ -196,7 +192,6 @@ node cli/index.js visualize -c original.png -e encoded.png -n 16
 ## 🧪 Running Tests
 
 ```bash
-cd backend
 npm test
 # → Jest with coverage report
 ```
@@ -208,6 +203,51 @@ Tests cover:
 - ✅ Image encode/decode round-trips
 - ✅ AES-256 encrypt/decrypt (random IV, wrong password, etc.)
 - ✅ All REST API endpoints via supertest
+
+---
+
+## 🚢 Deployment
+
+### Single Node service
+
+This is the simplest production deployment for Render, Railway, Fly, or any host that runs one Node process.
+
+```bash
+npm install
+npm run build
+NODE_ENV=production npm start
+```
+
+The backend serves `frontend/dist` in production, so the frontend can keep the default API base of `/api`.
+
+Required environment:
+
+```bash
+NODE_ENV=production
+PORT=5000
+CORS_ORIGIN=https://your-domain.com
+```
+
+### Separate frontend and backend
+
+If the frontend is deployed separately, set the frontend API URL at build time:
+
+```bash
+VITE_API_URL=https://your-api-domain.com/api
+VITE_BASE_PATH=/
+```
+
+For GitHub Pages project sites, also set:
+
+```bash
+VITE_BASE_PATH=/stegokit/
+```
+
+Set `CORS_ORIGIN` on the backend to the deployed frontend origin. It accepts a comma-separated list, for example:
+
+```bash
+CORS_ORIGIN=https://codeaurelius0.github.io,https://your-domain.com
+```
 
 ---
 

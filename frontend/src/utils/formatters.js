@@ -30,7 +30,7 @@ export function fileToDataUrl(file) {
 /** Get a colour class based on capacity percentage */
 export function capacityColor(pct) {
   const p = parseFloat(pct);
-  if (p < 60) return '#06d6a0';  // green
-  if (p < 85) return '#f59e0b';  // amber
-  return '#ef4444';               // red
+  if (p < 60) return '#3fb950';
+  if (p < 85) return '#d29922';
+  return '#f85149';
 }

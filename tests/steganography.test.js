@@ -182,10 +182,15 @@ describe('encodeImage / decodeImage', () => {
     await expect(engine.decodeImage(encoded, { password: 'wrong' })).rejects.toThrow();
   });
 
-  test('throws when secret image too large for carrier', async () => {
+  test('auto-upscales when secret image is larger than carrier capacity', async () => {
     const tinyCarrier = await makeTestImage(20, 20);
     const bigSecret   = await makeTestImage(200, 200);
-    await expect(engine.encodeImage(tinyCarrier, bigSecret)).rejects.toThrow(/carrier too small/i);
+    const encoded = await engine.encodeImage(tinyCarrier, bigSecret);
+    const recovered = await engine.decodeImage(encoded);
+    const img = await Jimp.read(recovered);
+
+    expect(img.bitmap.width).toBe(200);
+    expect(img.bitmap.height).toBe(200);
   });
 });
 

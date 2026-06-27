@@ -14,8 +14,8 @@ export default function PasswordField({ value, onChange, label = 'Encryption Pas
         disabled={disabled}
         autoComplete="new-password"
       />
-      <p style={{ fontSize: 12, color: '#8888a8', marginTop: 6 }}>
-        🔒 AES-256-CBC with scrypt key derivation
+      <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 6 }}>
+        AES-256-CBC with scrypt key derivation
       </p>
     </div>
   );

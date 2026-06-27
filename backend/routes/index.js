@@ -15,6 +15,15 @@ const decodeTextController   = require('../controllers/decodeTextController');
 const visualizeController    = require('../controllers/visualizeController');
 const { encryptController, decryptController } = require('../controllers/encryptController');
 
+// ── Base API Route ────────────────────────────────────────
+router.get('/', (_req, res) => {
+  res.json({
+    message: 'Welcome to StegoKit API',
+    status: 'Running',
+    healthCheck: '/api/health'
+  });
+});
+
 // ── Health check ─────────────────────────────────────────
 router.get('/health', (_req, res) => {
   res.json({ success: true, service: 'StegoKit API', version: '1.0.0', uptime: process.uptime() });

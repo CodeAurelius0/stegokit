@@ -94,7 +94,7 @@ export default function Docs() {
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: '48px 24px' }}>
       <div className="fade-up">
-        <h1 className="section-title">📖 Documentation</h1>
+        <h1 className="section-title">Documentation</h1>
         <p className="section-subtitle">
           Technical reference for StegoKit's steganography algorithms, API, and CLI.
         </p>
@@ -106,7 +106,7 @@ export default function Docs() {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {SECTIONS.map((s) => (
             <a key={s.id} href={`#${s.id}`}
-              style={{ fontSize: 13, color: '#7c6af7', textDecoration: 'none', padding: '4px 10px', background: 'rgba(124,106,247,0.1)', borderRadius: 6 }}>
+              style={{ fontSize: 13, color: 'var(--accent-blue)', textDecoration: 'none', padding: '4px 10px', background: 'rgba(47,129,247,0.1)', borderRadius: 6 }}>
               {s.title}
             </a>
           ))}
@@ -115,17 +115,17 @@ export default function Docs() {
 
       {SECTIONS.map((s) => (
         <div key={s.id} id={s.id} style={{ marginBottom: 36 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.3px', marginBottom: 16, paddingTop: 8 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 700, letterSpacing: 0, marginBottom: 16, paddingTop: 8 }}>
             {s.title}
           </h2>
 
           {s.content && (
-            <div className="card" style={{ background: s.code ? 'rgba(0,0,0,0.35)' : undefined }}>
+            <div className="card" style={{ background: s.code ? 'var(--bg-base)' : undefined }}>
               <pre style={{
                 margin: 0, whiteSpace: 'pre-wrap', lineHeight: 1.7,
                 fontSize: s.code ? 13 : 15,
                 fontFamily: s.code ? "'JetBrains Mono', monospace" : 'inherit',
-                color: '#d0d0d8',
+                color: 'var(--text-primary)',
               }}>{s.content}</pre>
             </div>
           )}
@@ -138,10 +138,10 @@ export default function Docs() {
                     <span className={`badge ${ep.method === 'GET' ? 'badge-green' : 'badge-purple'}`}>
                       {ep.method}
                     </span>
-                    <code style={{ fontFamily: 'monospace', fontSize: 14, color: '#f1f1f6' }}>{ep.path}</code>
-                    <span style={{ fontSize: 13, color: '#8888a8', marginLeft: 'auto' }}>{ep.desc}</span>
+                    <code style={{ fontFamily: 'monospace', fontSize: 14, color: 'var(--text-primary)' }}>{ep.path}</code>
+                    <span style={{ fontSize: 13, color: 'var(--text-secondary)', marginLeft: 'auto' }}>{ep.desc}</span>
                   </div>
-                  <div style={{ fontSize: 12, color: '#8888a8' }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                     <strong>Body:</strong> {ep.body}
                   </div>
                 </div>
@@ -152,11 +152,11 @@ export default function Docs() {
           {s.commands && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {s.commands.map((c, i) => (
-                <div key={i} className="card" style={{ padding: '12px 18px', background: 'rgba(0,0,0,0.3)' }}>
-                  <code style={{ fontFamily: 'monospace', fontSize: 13, color: '#06d6a0', display: 'block', marginBottom: 4 }}>
+                <div key={i} className="card" style={{ padding: '12px 18px', background: 'var(--bg-base)' }}>
+                  <code style={{ fontFamily: 'monospace', fontSize: 13, color: 'var(--success)', display: 'block', marginBottom: 4 }}>
                     $ {c.cmd}
                   </code>
-                  <span style={{ fontSize: 12, color: '#8888a8' }}>{c.desc}</span>
+                  <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{c.desc}</span>
                 </div>
               ))}
             </div>

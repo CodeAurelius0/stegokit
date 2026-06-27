@@ -20,13 +20,13 @@ export default function ResultPanel({ title, imageDataUrl, filename = 'result.pn
   };
 
   return (
-    <div className="card fade-up" style={{ borderColor: 'rgba(6,214,160,0.2)' }}>
+    <div className="card fade-up" style={{ borderColor: 'rgba(63,185,80,0.35)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-        <h3 style={{ fontWeight: 700, fontSize: 16, margin: 0, color: '#06d6a0' }}>
-          ✓ {title}
+        <h3 style={{ fontWeight: 700, fontSize: 16, margin: 0, color: 'var(--success)' }}>
+          {title}
         </h3>
         <button className="btn btn-accent" onClick={handleDownload} style={{ fontSize: 13, padding: '7px 16px' }}>
-          ⬇ Download
+          Download
         </button>
       </div>
 
@@ -35,9 +35,9 @@ export default function ResultPanel({ title, imageDataUrl, filename = 'result.pn
         alt={title}
         style={{
           width: '100%', maxHeight: 320,
-          objectFit: 'contain', borderRadius: 10,
-          background: 'rgba(0,0,0,0.3)',
-          border: '1px solid rgba(255,255,255,0.05)',
+          objectFit: 'contain', borderRadius: 8,
+          background: 'var(--bg-base)',
+          border: '1px solid var(--border-subtle)',
         }}
       />
 
@@ -49,12 +49,12 @@ export default function ResultPanel({ title, imageDataUrl, filename = 'result.pn
         }}>
           {meta.map(({ label, value }) => (
             <div key={label} style={{
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: 10, padding: '10px 12px',
-              border: '1px solid rgba(255,255,255,0.06)',
+              background: 'var(--bg-base)',
+              borderRadius: 8, padding: '10px 12px',
+              border: '1px solid var(--border-subtle)',
             }}>
-              <div style={{ fontSize: 12, color: '#8888a8', marginBottom: 2 }}>{label}</div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: '#f1f1f6', wordBreak: 'break-all' }}>{value}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 2 }}>{label}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', wordBreak: 'break-all' }}>{value}</div>
             </div>
           ))}
         </div>
