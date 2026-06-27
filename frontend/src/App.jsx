@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar      from './components/Navbar';
 import Home        from './pages/Home';
 import EncodeImage from './pages/EncodeImage';
@@ -9,8 +9,12 @@ import Visualize   from './pages/Visualize';
 import Docs        from './pages/Docs';
 
 export default function App() {
+  const basename = import.meta.env.BASE_URL === '/'
+    ? undefined
+    : import.meta.env.BASE_URL.replace(/\/$/, '');
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Navbar />
       <main style={{ minHeight: 'calc(100vh - 56px)' }}>
         <Routes>
@@ -24,7 +28,7 @@ export default function App() {
           <Route path="*"             element={
             <div style={{ textAlign: 'center', padding: '80px 24px' }}>
               <div style={{ fontSize: 48, marginBottom: 16 }}>404</div>
-              <div style={{ color: '#8888a8' }}>Page not found.</div>
+              <div style={{ color: 'var(--text-secondary)' }}>Page not found.</div>
             </div>
           } />
         </Routes>

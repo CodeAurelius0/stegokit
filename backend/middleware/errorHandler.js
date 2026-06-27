@@ -29,6 +29,7 @@ function resolveStatus(err) {
   if (msg.includes('no valid steganographic')) return 422;
   if (msg.includes('decryption failed'))        return 401;
   if (msg.includes('incorrect password'))       return 401;
+  if (msg.includes('cors origin not allowed'))  return 403;
   if (msg.includes('failed to load image'))     return 400;
   if (msg.includes('not found'))                return 404;
 

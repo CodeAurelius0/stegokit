@@ -30,7 +30,7 @@ export default function DecodeImage() {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 24px' }}>
       <div className="fade-up">
-        <h1 className="section-title">🔍 Extract Hidden Image</h1>
+        <h1 className="section-title">Extract Hidden Image</h1>
         <p className="section-subtitle">Upload a StegoKit-encoded image to recover the hidden image inside.</p>
       </div>
 
@@ -53,7 +53,7 @@ export default function DecodeImage() {
 
       <button className="btn btn-primary" onClick={handleSubmit} disabled={!encoded.file || loading}
         style={{ fontSize: 15, padding: '12px 32px', width: '100%', marginTop: 12 }}>
-        {loading ? <><Spinner size={16} color="#fff" /> Extracting…</> : '🔓 Extract Hidden Image'}
+        {loading ? <><Spinner size={16} color="#fff" /> Extracting…</> : 'Extract Hidden Image'}
       </button>
 
       {result && (

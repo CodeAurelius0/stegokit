@@ -43,7 +43,7 @@ export default function EncodeText() {
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: '48px 24px' }}>
       <div className="fade-up">
-        <h1 className="section-title">✍️ Hide Text in Image</h1>
+        <h1 className="section-title">Hide Text in Image</h1>
         <p className="section-subtitle">
           Embed any UTF-8 text — including Unicode & emoji — invisibly inside a carrier image using LSB encoding.
         </p>
@@ -79,7 +79,7 @@ export default function EncodeText() {
               </button>
             ))}
           </div>
-          <div style={{ fontSize: 12, color: '#8888a8', marginTop: 10 }}>
+          <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 10 }}>
             {text.length} characters · {byteLen} bytes
           </div>
         </div>
@@ -100,7 +100,7 @@ export default function EncodeText() {
       <button className="btn btn-primary" onClick={handleSubmit}
         disabled={!carrier.file || !text.trim() || loading}
         style={{ fontSize: 15, padding: '12px 32px', width: '100%', marginTop: 12 }}>
-        {loading ? <><Spinner size={16} color="#fff" /> Encoding…</> : '🔒 Encode Text into Image'}
+        {loading ? <><Spinner size={16} color="#fff" /> Encoding…</> : 'Encode Text into Image'}
       </button>
 
       {result && (

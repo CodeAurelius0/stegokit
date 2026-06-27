@@ -37,11 +37,11 @@ export default function Navbar() {
       position: 'sticky',
       top: 0,
       zIndex: 200,
-      background: 'rgba(14,17,23,0.85)',
-      backdropFilter: 'blur(20px)',
-      WebkitBackdropFilter: 'blur(20px)',
-      borderBottom: '1px solid rgba(255,255,255,0.06)',
-      boxShadow: scrolled ? '0 1px 0 rgba(255,255,255,0.06)' : 'none',
+      background: 'rgba(13,17,23,0.92)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      borderBottom: '1px solid var(--border-subtle)',
+      boxShadow: scrolled ? '0 1px 0 var(--border-subtle)' : 'none',
       transition: 'box-shadow 0.2s ease',
     }}>
       <nav style={{
@@ -59,8 +59,8 @@ export default function Navbar() {
           flexShrink: 0,
           fontWeight: 600,
           fontSize: 16,
-          color: '#ffffff',
-          letterSpacing: '-0.01em',
+          color: 'var(--text-primary)',
+          letterSpacing: 0,
         }}>
           StegoKit
         </NavLink>
@@ -88,14 +88,14 @@ export default function Navbar() {
                   alignItems: 'center',
                   fontSize: 14,
                   fontWeight: 400,
-                  color: active ? '#ffffff' : '#8b949e',
+                  color: active ? 'var(--text-primary)' : 'var(--text-secondary)',
                   textDecoration: 'none',
                   whiteSpace: 'nowrap',
                   transition: 'color 0.15s',
-                  borderBottom: active ? '2px solid #0098ff' : '2px solid transparent',
+                  borderBottom: active ? '2px solid var(--accent-blue)' : '2px solid transparent',
                 }}
-                onMouseEnter={e => { if (!active) e.currentTarget.style.color = '#ffffff'; }}
-                onMouseLeave={e => { if (!active) e.currentTarget.style.color = '#8b949e'; }}
+                onMouseEnter={e => { if (!active) e.currentTarget.style.color = 'var(--text-primary)'; }}
+                onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'var(--text-secondary)'; }}
               >
                 {label}
               </NavLink>
@@ -107,10 +107,10 @@ export default function Navbar() {
         <div style={{
           marginLeft: 16,
           padding: '4px 12px',
-          background: 'rgba(130,100,250,0.1)',
-          border: '1px solid rgba(130,100,250,0.2)',
-          borderRadius: 20,
-          color: '#a38df5',
+          background: 'var(--bg-elevated)',
+          border: '1px solid var(--border-default)',
+          borderRadius: 999,
+          color: 'var(--text-secondary)',
           fontSize: 12,
           fontWeight: 600,
           fontFamily: "'JetBrains Mono', monospace",

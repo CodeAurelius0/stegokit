@@ -11,13 +11,13 @@ export default function CapacityMeter({ capacity }) {
 
   return (
     <div style={{
-      background: 'rgba(255,255,255,0.03)',
-      border: '1px solid rgba(255,255,255,0.07)',
-      borderRadius: 12,
+      background: 'var(--bg-surface)',
+      border: '1px solid var(--border-subtle)',
+      borderRadius: 8,
       padding: '14px 18px',
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-        <span style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px', color: '#8888a8' }}>
+        <span style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px', color: 'var(--text-secondary)' }}>
           Carrier Capacity
         </span>
         <span style={{ fontSize: 13, fontWeight: 700, color }}>
@@ -26,14 +26,14 @@ export default function CapacityMeter({ capacity }) {
       </div>
 
       {/* Progress bar */}
-      <div style={{ height: 6, background: 'rgba(255,255,255,0.06)', borderRadius: 3, overflow: 'hidden', marginBottom: 12 }}>
+      <div style={{ height: 6, background: 'var(--bg-elevated)', borderRadius: 3, overflow: 'hidden', marginBottom: 12 }}>
         <div style={{
           height: '100%',
           width: `${Math.min(pct, 100)}%`,
           background: color,
           borderRadius: 3,
           transition: 'width 0.5s ease',
-          boxShadow: `0 0 8px ${color}60`,
+          boxShadow: 'none',
         }} />
       </div>
 
@@ -44,8 +44,8 @@ export default function CapacityMeter({ capacity }) {
           { label: 'Remaining', val: formatBytes(capacity.remainingBytes) },
         ].map(({ label, val }) => (
           <div key={label} style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 15, fontWeight: 700, color: '#f1f1f6' }}>{val}</div>
-            <div style={{ fontSize: 11, color: '#8888a8', marginTop: 2 }}>{label}</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>{val}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 2 }}>{label}</div>
           </div>
         ))}
       </div>
