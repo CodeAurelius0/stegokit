@@ -33,7 +33,7 @@ export default function Footer() {
         {/* Center — links */}
         <div style={{ display: 'flex', gap: 20 }}>
           <a
-            href="https://github.com/priyansx2233"
+            href="https://github.com/CodeAurelius0"
             target="_blank"
             rel="noopener noreferrer"
             style={{
