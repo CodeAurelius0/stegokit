@@ -8,7 +8,8 @@ import DecodeImage from './pages/DecodeImage';
 import EncodeText  from './pages/EncodeText';
 import DecodeText  from './pages/DecodeText';
 import Visualize   from './pages/Visualize';
-import Docs        from './pages/Docs';
+import Docs          from './pages/Docs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 export default function App() {
   const basename = import.meta.env.BASE_URL === '/'
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/decode-text"  element={<DecodeText />} />
             <Route path="/visualize"    element={<Visualize />} />
             <Route path="/docs"         element={<Docs />} />
+            <Route path="/privacy"      element={<PrivacyPolicy />} />
             <Route path="*"             element={
               <div style={{ textAlign: 'center', padding: '80px 24px' }}>
                 <div style={{

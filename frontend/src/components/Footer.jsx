@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 /**
  * Footer — shared site footer
  * Left: version info | Center: links | Right: STEGOKIT
@@ -30,22 +32,34 @@ export default function Footer() {
 
         {/* Center — links */}
         <div style={{ display: 'flex', gap: 20 }}>
-          {['Github', 'API Docs', 'Privacy Policy', 'License'].map(link => (
-            <a
-              key={link}
-              href="#"
-              style={{
-                fontSize: 12,
-                color: 'rgba(255,255,255,0.35)',
-                textDecoration: 'none',
-                transition: 'color 0.15s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
-            >
-              {link}
-            </a>
-          ))}
+          <a
+            href="https://github.com/priyansx2233"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.35)',
+              textDecoration: 'none',
+              transition: 'color 0.15s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
+          >
+            Github
+          </a>
+          <Link
+            to="/privacy"
+            style={{
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.35)',
+              textDecoration: 'none',
+              transition: 'color 0.15s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
+          >
+            Privacy Policy
+          </Link>
         </div>
 
         {/* Right — wordmark */}
