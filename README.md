@@ -1,5 +1,8 @@
 # StegoKit 🔐
 
+# live demo
+https://stegokit.vercel.app/
+
 > **Production-grade Steganography Toolkit** — Hide images and text inside carrier images using LSB encoding, with optional AES-256 encryption.
 
 ![StegoKit Architecture](../steganography-architecture.html)
