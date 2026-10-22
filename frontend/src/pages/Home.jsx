@@ -47,14 +47,13 @@ export default function Home() {
         <div className="container-vsc" style={{ maxWidth: 700 }}>
 
           <h1 className="fade-up" style={{
-            fontSize: 'clamp(2.8rem, 6vw, 4.5rem)',
             fontWeight: 700,
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
             color: '#ffffff',
             margin: '0 0 20px',
           }}>
-            Invisible Information.
+           Free Online Steganography Tools
           </h1>
 
           <p className="fade-up" style={{

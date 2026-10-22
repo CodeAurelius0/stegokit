@@ -1,3 +1,5 @@
+
+
 import { NavLink, useLocation } from 'react-router-dom';
 
 const NAV_ITEMS = [
@@ -24,55 +26,55 @@ export default function Navbar() {
       borderBottom: '1px solid rgba(255,255,255,0.06)',
     }}>
       <nav style={{
-        maxWidth: 1200,
+        maxWidth: 1280,
         margin: '0 auto',
         display: 'flex',
         alignItems: 'center',
-        padding: '0 20px',
-        height: 48,
+        padding: '0 28px',
+        height: 60,
       }}>
-        {}
-        <NavLink to="/" style={{
-          textDecoration: 'none',
-          marginRight: 32,
-          flexShrink: 0,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 7,
-        }}>
-          {}
-          <div style={{
-            width: 22,
-            height: 22,
-            background: 'var(--bg-elevated)',
-            border: '1px solid rgba(255,255,255,0.12)',
-            borderRadius: 4,
+        {/* Left slot: logo */}
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', minWidth: 0 }}>
+          <NavLink to="/" style={{
+            textDecoration: 'none',
+            flexShrink: 0,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            gap: 9,
           }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2"/>
-              <path d="M3 9h18M9 21V9"/>
-            </svg>
-          </div>
-          <span style={{
-            fontWeight: 600,
-            fontSize: 14,
-            color: 'var(--text-primary)',
-            letterSpacing: '-0.01em',
-            fontFamily: "'JetBrains Mono', monospace",
-          }}>
-            StegoKit
-          </span>
-        </NavLink>
-
-        {}
+            <div style={{
+              width: 28,
+              height: 28,
+              background: 'var(--bg-elevated)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              borderRadius: 6,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18M9 21V9"/>
+              </svg>
+            </div>
+            <span style={{
+              fontWeight: 600,
+              fontSize: 17,
+              color: '#ffffff',
+              letterSpacing: '-0.01em',
+              fontFamily: "'JetBrains Mono', monospace",
+            }}>
+              Stego<span style={{ color: '#00E5C3' }}>Kit</span>
+            </span>
+          </NavLink>
+        </div>
         <div style={{
           display: 'flex',
+          justifyContent: 'center',
           gap: 0,
-          flex: 1,
-          overflow: 'auto',
+          flexShrink: 1,
+          minWidth: 0,
+          overflowX: 'auto',
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
         }}>
@@ -87,11 +89,11 @@ export default function Navbar() {
                 to={to}
                 style={{
                   position: 'relative',
-                  padding: '0 14px',
-                  height: 48,
+                  padding: '0 18px',
+                  height: 60,
                   display: 'flex',
                   alignItems: 'center',
-                  fontSize: 13,
+                  fontSize: 15,
                   fontWeight: active ? 600 : 400,
                   color: active ? '#ffffff' : 'rgba(255,255,255,0.45)',
                   textDecoration: 'none',
@@ -114,7 +116,7 @@ export default function Navbar() {
             );
           })}
         </div>
-
+        <div style={{ flex: 1 }} />
       </nav>
     </header>
   );
