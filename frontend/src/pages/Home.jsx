@@ -44,17 +44,7 @@ export default function Home() {
         textAlign: 'center',
         position: 'relative',
       }}>
-        <div className="container-vsc" style={{ maxWidth: 700 }}>
-
-          <h1 className="fade-up" style={{
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            lineHeight: 1.05,
-            color: '#ffffff',
-            margin: '0 0 20px',
-          }}>
-           Free Online Steganography Tools
-          </h1>
+        <div className="container-vsc" style={{ maxWidth: 900 }}>
 
           <p className="fade-up" style={{
             color: 'rgba(255,255,255,0.5)',
@@ -62,9 +52,9 @@ export default function Home() {
             fontWeight: 400,
             lineHeight: 1.7,
             margin: '0 auto 40px',
-            maxWidth: 540,
+            maxWidth: 900,
           }}>
-            Professional-grade LSB steganography for secure data embedding. Hide
+             LSB steganography for secure data embedding. Hide
             secrets in plain sight.
           </p>
 
